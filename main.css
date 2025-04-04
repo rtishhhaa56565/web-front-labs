@@ -28,7 +28,7 @@ footer {
 a {
   color: blue;
   text-decoration: none;
-  transition: all 0.3s ease; 
+  transition: all 0.3s; 
 }
 a:link {
   color: blue;
