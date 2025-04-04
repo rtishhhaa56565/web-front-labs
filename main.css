@@ -1,27 +1,52 @@
 body {
-    background-color: LightBlue;
-    color: maroon;
-    font-family: Arial, sans-serif;
-    margin: 0px;
-  }
-  
-  header {
-    background-color: DarkBlue;
-    color: white;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  main {
-    background-color: LightGray;
-    color: black;
-    padding: 20px;
-  }
-  
-  footer {
-    background-color: DarkRed;
-    color: white;
-    padding: 10px;
-    text-align: center;
-  }
-  
+  background-color: LightBlue;
+  color: maroon;
+  font-family: Arial, sans-serif;
+  margin: 0px;
+}
+
+header {
+  background-color: DarkBlue;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+main {
+  background-color: LightGray;
+  color: black;
+  padding: 20px;
+}
+
+footer {
+  background-color: DarkRed;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+  transition: all 0.3s ease; 
+}
+a:link {
+  color: blue;
+  text-decoration: none;
+}
+a:visited {
+  color: purple;
+  text-decoration: underline;
+}
+a:hover {
+  color: white; 
+  background-color: red; 
+  text-decoration: underline; 
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); 
+  border-radius: 5px; 
+  padding: 2px 5px; 
+}
+a:active {
+  color: black;
+  opacity: 0.3;
+}
