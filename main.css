@@ -16,13 +16,19 @@ main {
   background-color: LightGray;
   color: black;
   padding: 20px;
+  margin: 10px 20px 56px; 
 }
+
 
 footer {
   background-color: DarkRed;
   color: white;
   padding: 10px;
   text-align: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
 }
 
 a {
