@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Барышня-крестьянка</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .block {
+            width: 500px;
+            border: 3px solid #cccccc;
+            border-radius: 10px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .block:hover {
+            width: 550px;
+            padding: 30px;
+            background-color: #ffe5e5;
+            border: 3px solid #ff0000;
+            color: #ff0000;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .block h1 {
+            font-size: 28px;
+            margin: 0;
+            transition: color 0.3s ease;
+        }
+        .block:hover h1 {
+            color: #770000;
+        }
+        .block p {
+            opacity: 0;
+            display: none;
+            transition: opacity 0.5s ease 2s;
+        }
+        .block:hover p {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="block">
+            <h1>БАРЫШНЯ-КРЕСТЬЯНКА</h1>
+            <p>Во всех ты, Душенька, нарядна, хороша. Богданович<br>
+            В одной из отдаленных наших губерний находилось имение Ивана Петровича Берестова. В молодости своей служил он в гвардии...</p>
+        </div>
+        <div class="block">
+            <h1>РАССКАЗ ВТОРОЙ</h1>
+            <p>Она любила рассветы и шум моря. Каждый день начинался для нее с прогулки вдоль берега...</p>
+        </div>
+        <div class="block">
+            <h1>РАССКАЗ ТРЕТИЙ</h1>
+            <p>В старом доме у окраины жили ее детские мечты. Она часто возвращалась туда, чтобы вспомнить...</p>
+        </div>
+        <div class="block">
+            <h1>РАССКАЗ ЧЕТВЕРТЫЙ</h1>
+            <p>Летняя ночь была свежей и тихой. Звезды горели над головой, и казалось, что весь мир затаил дыхание...</p>
+        </div>
+        <div class="block">
+            <h1>РАССКАЗ ПЯТЫЙ</h1>
+            <p>Где-то вдалеке слышался звон колоколов. Она остановилась, чтобы услышать лучше и закрыла глаза...</p>
+        </div>
+    </main>
+</body>
+</html>

@@ -9,15 +9,43 @@
     <link rel="icon" href="favicon-16x16.png" type="image/x-icon">
     <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
     <style>
-        div.discount div {
-            display: none;
-        }
-        h1:hover+div {
-            display: block;
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
         }
         .discount {
             width: 300px;
-            border: 1px solid;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            display: inline-block;
+            vertical-align: top;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .discount:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 18px;
+            color: #4CAF50;
+            margin: 10px;
+            cursor: pointer;
+        }
+        div.discount div {
+            display: none;
+            padding: 15px;
+            color: #333;
+        }
+        h1:hover + div {
+            display: block;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
         }
     </style>
 </head>
@@ -30,16 +58,31 @@
         <div class="discount">
             <h1>Дисконт в теории игр</h1>
             <div>
-                В теории игр, дисконт — текущая стоимость денежной единицы будущего периода, умноженная на вероятность повторения игры для игр с неизвестным числом повторений. 
+                В теории игр, дисконт — текущая стоимость денежной единицы будущего периода, умноженная на вероятность повторения игры для игр с неизвестным числом повторений.
             </div>
         </div>
 
-        <div class="discount">   
+        <div class="discount">
             <h1>Залоговый дисконт</h1>
             <div>
-                Разница между реальной рыночной стоимостью залогового имущества и его залоговой стоимостью, используемой для определения суммы выдаваемого банком кредита.</span>
+                Разница между реальной рыночной стоимостью залогового имущества и его залоговой стоимостью, используемой для определения суммы выдаваемого банком кредита.
             </div>
-        </div>    
+        </div>
+
+        <div class="discount">
+            <h1>Исторический дисконт</h1>
+            <div>
+                Исторический дисконт — снижение стоимости активов или обязательств, связанных с экономической нестабильностью или кризисами.
+            </div>
+        </div>
+
+        <div class="discount">
+            <h1>Международный дисконт</h1>
+            <div>
+                Международный дисконт — разница в ценах товаров или услуг, обусловленная валютными курсами и торговыми барьерами между странами.
+            </div>
+        </div>
+
         <footer>
             <p>&copy; 2025 Дисконтирование. Все права защищены.</p>
         </footer>
