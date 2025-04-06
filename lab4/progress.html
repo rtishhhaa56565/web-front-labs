@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Окно прогресса</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            background-color: #add8e6;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
+        .header, .footer {
+            background-color: black;
+            color: lime;
+            padding: 10px;
+            text-align: center;
+        }
+        .header {
+            flex-shrink: 0;
+        }
+        .footer {
+            flex-shrink: 0;
+        }
+        .progress-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .progress-panel {
+            width: 100%;
+            max-width: 300px;
+            text-align: center;
+            border: 1px solid brown;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .progress-title {
+            color: brown;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .progress-button {
+            background-color: #4169e1;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .progress-button:hover {
+            box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+        #progress {
+            width: 100%;
+            height: 10px;
+            background-color: white;
+            margin-bottom: 10px;
+            border: 1px solid brown;
+            overflow: hidden;
+        }
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">НГТУ, ФБ, Лабораторная работа 4</div>
+    <div class="progress-container">
+        <div class="progress-panel">
+            <div class="progress-title">Степень прогресса</div>
+            <div id="progress">
+                <div id="progress-bar"></div>
+            </div>
+            <button class="progress-button" id="progressButton">Нажмите и удерживайте</button>
+        </div>
+    </div>
+    <div class="footer">© Арышева Арина, ФБИ-34, 2 курс, 2025</div>
+
+    <script>
+        const button = document.getElementById('progressButton');
+        const progressBar = document.getElementById('progress-bar');
+        let interval;
+        let progress = 0;
+
+        button.addEventListener('mousedown', () => {
+            progress = 0;
+            progressBar.style.width = '0%';
+
+            interval = setInterval(() => {
+                if (progress < 100) {
+                    progress += 3;
+                    progressBar.style.width = progress + '%';
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
+        });
+
+        button.addEventListener('mouseup', () => {
+            clearInterval(interval);
+        });
+
+        button.addEventListener('mouseleave', () => {
+            clearInterval(interval);
+        });
+    </script>
+</body>
+</html>
