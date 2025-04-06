@@ -9,9 +9,8 @@
             background-color: #e0f7fa;
             margin: 0;
             font-family: Arial, sans-serif;
+            overflow: hidden;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
         }
         header, .footer {
             background-color: #000000;
@@ -39,8 +38,8 @@
             position: relative;
             width: 100%;
             height: 100%;
-            margin-top: 60px; /* Высота header */
-            margin-bottom: 50px; /* Высота footer */
+            margin-top: 60px; 
+            margin-bottom: 50px; 
             overflow: hidden;
         }
         .tag {
@@ -48,43 +47,77 @@
             font-weight: bold;
             font-size: 20px;
             transition: all 0.3s ease;
+            animation: floatAnimation 10s infinite alternate ease-in-out;
         }
         .tag:hover {
-            transform: scale(1.5); /* Увеличиваем элемент */
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Добавляем тень */
-            z-index: 10; /* Принудительно размещаем над другими элементами */
+            animation-play-state: paused; 
+            transform: scale(1.5); 
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); 
+            z-index: 10; 
         }
 
-        /* Распределение тегов по пространству страницы */
-        .tag:nth-child(1) { top: 10%; left: 10%; color: red; font-size: 30px; }
-        .tag:nth-child(2) { top: 20%; left: 40%; color: blue; font-size: 28px; }
-        .tag:nth-child(3) { top: 30%; left: 70%; color: green; font-size: 26px; }
-        .tag:nth-child(4) { top: 40%; left: 20%; color: orange; font-size: 32px; }
-        .tag:nth-child(5) { top: 50%; left: 50%; color: purple; font-size: 29px; }
-        .tag:nth-child(6) { top: 60%; left: 80%; color: #ff4500; font-size: 27px; }
-        .tag:nth-child(7) { top: 10%; left: 70%; color: teal; font-size: 26px; }
-        .tag:nth-child(8) { top: 20%; left: 10%; color: brown; font-size: 31px; }
-        .tag:nth-child(9) { top: 30%; left: 50%; color: #8b0000; font-size: 36px; }
-        .tag:nth-child(10) { top: 40%; left: 90%; color: magenta; font-size: 25px; }
-        .tag:nth-child(11) { top: 70%; left: 30%; color: darkblue; font-size: 28px; }
-        .tag:nth-child(12) { top: 50%; left: 10%; color: darkorange; font-size: 27px; }
-        .tag:nth-child(13) { top: 80%; left: 70%; color: #4682b4; font-size: 24px; }
-        .tag:nth-child(14) { top: 30%; left: 80%; color: black; font-size: 26px; }
-        .tag:nth-child(15) { top: 60%; left: 40%; color: #9932cc; font-size: 28px; }
-        .tag:nth-child(16) { top: 70%; left: 90%; color: #32cd32; font-size: 30px; }
-        .tag:nth-child(17) { top: 40%; left: 60%; color: #dc143c; font-size: 29px; }
-        .tag:nth-child(18) { top: 20%; left: 80%; color: #0000cd; font-size: 28px; }
-        .tag:nth-child(19) { top: 80%; left: 50%; color: #7b68ee; font-size: 27px; }
-        .tag:nth-child(20) { top: 90%; left: 30%; color: black; font-size: 25px; }
+        
+        @keyframes floatAnimation {
+            from {
+                transform: translate(0px, 0px);
+            }
+            to {
+                transform: translate(calc(100vw - 50px), calc(100vh - 50px));
+            }
+        }
+
+       
+        .tag:nth-child(1) { animation-duration: 12s; animation-delay: 0s; color: red; }
+        .tag:nth-child(2) { animation-duration: 14s; animation-delay: 2s; color: blue; }
+        .tag:nth-child(3) { animation-duration: 10s; animation-delay: 4s; color: green; }
+        .tag:nth-child(4) { animation-duration: 16s; animation-delay: 1s; color: orange; }
+        .tag:nth-child(5) { animation-duration: 13s; animation-delay: 3s; color: purple; }
+        .tag:nth-child(6) { animation-duration: 15s; animation-delay: 0.5s; color: #ff4500; }
+        .tag:nth-child(7) { animation-duration: 11s; animation-delay: 2s; color: teal; }
+        .tag:nth-child(8) { animation-duration: 9s; animation-delay: 6s; color: brown; }
+        .tag:nth-child(9) { animation-duration: 12s; animation-delay: 4s; color: #8b0000; }
+        .tag:nth-child(10) { animation-duration: 14s; animation-delay: 5s; color: magenta; }
+        .tag:nth-child(11) { animation-duration: 11s; animation-delay: 2s; color: pink; }
+        .tag:nth-child(12) { animation-duration: 13s; animation-delay: 1s; color: cyan; }
+        .tag:nth-child(13) { animation-duration: 15s; animation-delay: 4s; color: darkblue; }
+        .tag:nth-child(14) { animation-duration: 10s; animation-delay: 2s; color: darkgreen; }
+        .tag:nth-child(15) { animation-duration: 8s; animation-delay: 3s; color: black; }
+        .tag:nth-child(16) { animation-duration: 12s; animation-delay: 4s; color: lime; }
+        .tag:nth-child(17) { animation-duration: 14s; animation-delay: 2s; color: gold; }
+        .tag:nth-child(18) { animation-duration: 10s; animation-delay: 3s; color: indigo; }
+        .tag:nth-child(19) { animation-duration: 9s; animation-delay: 5s; color: coral; }
+        .tag:nth-child(20) { animation-duration: 11s; animation-delay: 6s; color: violet; }
+        
+        
+        .tag:nth-child(1) { top: 5%; left: 5%; }
+        .tag:nth-child(2) { top: 10%; left: 20%; }
+        .tag:nth-child(3) { top: 15%; left: 35%; }
+        .tag:nth-child(4) { top: 20%; left: 50%; }
+        .tag:nth-child(5) { top: 25%; left: 65%; }
+        .tag:nth-child(6) { top: 30%; left: 80%; }
+        .tag:nth-child(7) { top: 35%; left: 10%; }
+        .tag:nth-child(8) { top: 40%; left: 25%; }
+        .tag:nth-child(9) { top: 45%; left: 40%; }
+        .tag:nth-child(10) { top: 50%; left: 55%; }
+        .tag:nth-child(11) { top: 55%; left: 70%; }
+        .tag:nth-child(12) { top: 60%; left: 15%; }
+        .tag:nth-child(13) { top: 65%; left: 30%; }
+        .tag:nth-child(14) { top: 70%; left: 45%; }
+        .tag:nth-child(15) { top: 75%; left: 60%; }
+        .tag:nth-child(16) { top: 80%; left: 10%; }
+        .tag:nth-child(17) { top: 85%; left: 20%; }
+        .tag:nth-child(18) { top: 90%; left: 40%; }
+        .tag:nth-child(19) { top: 95%; left: 60%; }
+        .tag:nth-child(20) { top: 50%; left: 80%; }
     </style>
 </head>
 <body>
-    <!-- Заголовок -->
+    
     <header>
         НГТУ, ФБ, Лабораторная работа 4
     </header>
 
-    <!-- Облако тегов -->
+   
     <div class="content" id="tag-container">
         <div class="tag">HTML</div>
         <div class="tag">CSS</div>
@@ -94,25 +127,25 @@
         <div class="tag">Node.js</div>
         <div class="tag">Express</div>
         <div class="tag">GraphQL</div>
-        
         <div class="tag">Python</div>
         <div class="tag">Java</div>
+        <div class="tag">PHP</div>
         <div class="tag">C++</div>
         <div class="tag">C#</div>
         <div class="tag">Ruby</div>
         <div class="tag">Kotlin</div>
         <div class="tag">Swift</div>
-        <div class="tag">PHP</div>
-        <div class="tag">Rust</div>
-        <div class="tag">Go</div>
-        <div class="tag">Scala</div>
-        <div class="tag">Perl</div>
+        <div class="tag">Django</div>
+        <div class="tag">Flask</div>
+        <div class="tag">TypeScript</div>
+        <div class="tag">Angular</div>
     </div>
 
-    <!-- Подвал -->
-    <div class="footer">
-        © Иван Иванов, ФБИ-00, 2 курс, 2024
+       <div class="footer">
+        © Арышева Арина, ФБИ-34, 2 курс, 2025
     </div>
 </body>
 </html>
+
+
 
