@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Меню</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <script>
+        function showASum() {
+            let a = 5154;
+            let b = 7891;
+            let result = a + b;
+            alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
+        }
+        function showAuthor() {
+            alert('Автор страницы: Арышева Арина, ФБИ-34');
+        }
+    </script>
+    <style>
+        .message {
+            cursor: pointer;
+            width: 320px;
+            height: 80px;
+            background-color: #f0f0f0;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 10px 0;
+            padding: 12px 16px;
+            font-size: 18px;
+            color: #133152;
+            box-shadow: 1px 2px 6px rgba(34, 91, 141, 0.15);
+        }
+        header {
+            cursor: pointer;
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header onclick="showAuthor()">
+        НГТУ, ФБ, Лабораторная работа 5
+    </header>
+    <main>
+        <div class="message" onclick="showASum()">Сколько будет 5154+7891?</div>
+        <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
+    </main>
+    <footer>
+        <p>&copy; Арышева Арина, ФБИ-34, 2 курс, 2025</p> 
+    </footer>
+</body>
+</html>
