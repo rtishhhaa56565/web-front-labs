@@ -16,7 +16,10 @@
             alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
         }
         function showAuthor() {
-            alert('Автор страницы: Арышева Арина, ФБИ-34');
+            alert('Автор страницы: \nАрышева Арина, ФБИ-34');
+        }
+        function showWelcome() {
+            alert('Приветствую вас на моей странице!\nДевиз: «Успех сопутствует тем, кто действует!»');
         }
     </script>
     <style>
@@ -41,6 +44,9 @@
             background-color: #007bff;
             color: white;
         }
+        footer {
+            cursor: zoom-in;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +57,7 @@
         <div class="message" onclick="showASum()">Сколько будет 5154+7891?</div>
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
-    <footer>
+    <footer ondblclick="showWelcome()">
         <p>&copy; Арышева Арина, ФБИ-34, 2 курс, 2025</p> 
     </footer>
 </body>
