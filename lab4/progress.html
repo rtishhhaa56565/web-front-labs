@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогресс с кнопкой</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #e9ecef; /* Светлый фон */
+            font-family: Arial, sans-serif; 
+        }
+
+        .progress-container {
+            text-align: center;
+        }
+
+        .progress {
+            width: 400px; /* Ширина панели прогресса */
+            height: 35px;
+            background-color: #cfd8dc; /* Серая задняя панель */
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px; /* Отступ снизу */
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50; /* Зеленый цвет для прогресса */
+            transition: width 0.1s;
+            border-radius: 10px 0 0 10px; /* Закругление слева */
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff; /* Синий фон кнопки */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+
+        .btn:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .btn:active {
+            box-shadow: none;
+            transform: translateY(2px); /* Эффект нажатия */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+        <button class="btn" id="holdButton">Нажмите и удерживайте</button>
+    </div>
+
+    <script>
+        const progressBar = document.querySelector('.progress-bar');
+        const holdButton = document.getElementById('holdButton');
+        let progressInterval;
+
+        function startProgress() {
+            let progress = 0;
+            progressBar.style.width = '0%';
+
+            progressInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                } else {
+                    progress++;
+                    progressBar.style.width = progress + '%';
+                }
+            }, 100); // 5 секунд для достижения 100%
+        }
+
+        holdButton.addEventListener('mousedown', () => {
+            holdButton.style.boxShadow = 'none';
+            startProgress();
+        });
+
+        holdButton.addEventListener('mouseup', () => {
+            clearInterval(progressInterval);
+            holdButton.style.boxShadow = '0 3px 6px rgba(0, 0, 0, 0.2)';
+        });
+
+        holdButton.addEventListener('mouseleave', () => {
+            clearInterval(progressInterval);
+            holdButton.style.boxShadow = '0 3px 6px rgba(0, 0, 0, 0.2)';
+        });
+    </script>
+    <header>
+        НГТУ, ФБ, Лабораторная работа 4
+    </header>
+</body>
+</html>
