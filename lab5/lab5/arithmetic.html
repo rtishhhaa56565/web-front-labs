@@ -9,9 +9,13 @@
     <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
     <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
     <script>
-        function showASum() {
-            let a = 5154;
-            let b = 7891;
+        function showSum() {
+            let a = parseFloat(document.getElementById('numberA').value);
+            let b = parseFloat(document.getElementById('numberB').value);
+            if (isNaN(a) || isNaN(b)) {
+                alert('Пожалуйста, введите оба числа.');
+                return;
+            }
             let result = a + b;
             alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
         }
@@ -47,6 +51,16 @@
         footer {
             cursor: zoom-in;
         }
+        label {
+            font-size: 18px;
+            color: #133152;
+            margin-right: 15px;
+        }
+        input[type="number"] {
+            font-size: 16px;
+            width: 80px;
+            margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -54,7 +68,15 @@
         НГТУ, ФБ, Лабораторная работа 5
     </header>
     <main>
-        <div class="message" onclick="showASum()">Сколько будет 5154+7891?</div>
+        <label>Первое число:
+            <input type="number" value="5154" id="numberA">
+        </label>
+        <label>Второе число:
+            <input type="number" value="7891" id="numberB">
+        </label>
+        <div class="message" onclick="showSum()">
+            Найти сумму чисел
+        </div>
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
     <footer ondblclick="showWelcome()">
@@ -62,3 +84,4 @@
     </footer>
 </body>
 </html>
+
