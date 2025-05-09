@@ -42,9 +42,90 @@
             alert('Произведение ' + a + ' и ' + b + ' равно ' + result);
         }
         
+        function showDiv() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+            
+            let a = parseFloat(inputA.value);
+            let b = parseFloat(inputB.value);
+            
+            // Сброс стилей ошибок
+            inputA.style.color = '';
+            inputA.style.borderColor = '';
+            inputB.style.color = '';
+            inputB.style.borderColor = '';
+            
+            if (isNaN(a)) {
+                alert('Пожалуйста, введите числовое значение в первое поле');
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                inputA.focus();
+                return;
+            }
+            
+            if (isNaN(b)) {
+                alert('Пожалуйста, введите числовое значение во второе поле');
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                inputB.focus();
+                inputB.select();
+                return;
+            }
+            
+            if (b === 0) {
+                alert('На ноль делить нельзя!');
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                inputB.focus();
+                inputB.select();
+                return;
+            }
+            
+            alert(a + ' / ' + b + ' = ' + (a / b));
+        }
+        
+        function showPower() {
+            let inputA = document.getElementById('numberA');
+            let inputB = document.getElementById('numberB');
+            
+            let a = parseFloat(inputA.value);
+            let b = parseFloat(inputB.value);
+            
+            // Сброс стилей ошибок
+            inputA.style.color = '';
+            inputA.style.borderColor = '';
+            inputB.style.color = '';
+            inputB.style.borderColor = '';
+            
+            if (isNaN(a) || isNaN(b)) {
+                alert('Пожалуйста, введите числовые значения в оба поля');
+                if (isNaN(a)) {
+                    inputA.style.color = 'red';
+                    inputA.style.borderColor = 'red';
+                }
+                if (isNaN(b)) {
+                    inputB.style.color = 'red';
+                    inputB.style.borderColor = 'red';
+                }
+                return;
+            }
+            
+            if (a === 0 && b === 0) {
+                alert('Ноль в нулевой степени не определен!');
+                inputA.style.color = 'red';
+                inputA.style.borderColor = 'red';
+                inputB.style.color = 'red';
+                inputB.style.borderColor = 'red';
+                return;
+            }
+            
+            alert(a + ' в степени ' + b + ' = ' + Math.pow(a, b));
+        }
+        
         function showAuthor() {
             alert('Автор страницы: \nАрышева Арина, ФБИ-34');
         }
+        
         function showWelcome() {
             alert('Приветствую вас на моей странице!\nДевиз: «Успех сопутствует тем, кто действует!»');
         }
@@ -106,6 +187,12 @@
         <div class="message" onclick="showProduct()">
             Найти произведение
         </div>
+        <div class="message" onclick="showDiv()">
+            Найти отношение чисел
+        </div>
+        <div class="message" onclick="showPower()">
+            Найти степень числа
+        </div>
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
     <footer ondblclick="showWelcome()">
@@ -113,4 +200,3 @@
     </footer>
 </body>
 </html>
-
