@@ -19,6 +19,29 @@
             let result = a + b;
             alert('Сумма ' + a + ' и ' + b + ' равна ' + result);
         }
+        
+        function showDifference() {
+            let a = parseFloat(document.getElementById('numberA').value);
+            let b = parseFloat(document.getElementById('numberB').value);
+            if (isNaN(a) || isNaN(b)) {
+                alert('Пожалуйста, введите оба числа.');
+                return;
+            }
+            let result = a - b;
+            alert('Разность ' + a + ' и ' + b + ' равна ' + result);
+        }
+        
+        function showProduct() {
+            let a = parseFloat(document.getElementById('numberA').value);
+            let b = parseFloat(document.getElementById('numberB').value);
+            if (isNaN(a) || isNaN(b)) {
+                alert('Пожалуйста, введите оба числа.');
+                return;
+            }
+            let result = a * b;
+            alert('Произведение ' + a + ' и ' + b + ' равно ' + result);
+        }
+        
         function showAuthor() {
             alert('Автор страницы: \nАрышева Арина, ФБИ-34');
         }
@@ -76,6 +99,12 @@
         </label>
         <div class="message" onclick="showSum()">
             Найти сумму чисел
+        </div>
+        <div class="message" onclick="showDifference()">
+            Найти разность чисел
+        </div>
+        <div class="message" onclick="showProduct()">
+            Найти произведение
         </div>
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
     </main>
