@@ -129,6 +129,17 @@
         function showWelcome() {
             alert('Приветствую вас на моей странице!\nДевиз: «Успех сопутствует тем, кто действует!»');
         }
+        
+        // Функции для изменения блока
+        function changeBlock(btnNumber, bgColor, textColor, borderType, borderRadius, borderWidth) {
+            let output = document.getElementById('outputBlock');
+            output.innerHTML = 'Нажата кнопка ' + btnNumber;
+            output.style.backgroundColor = bgColor;
+            output.style.color = textColor;
+            output.style.borderStyle = borderType;
+            output.style.borderRadius = borderRadius;
+            output.style.borderWidth = borderWidth;
+        }
     </script>
     <style>
         .message {
@@ -165,6 +176,26 @@
             width: 80px;
             margin-left: 5px;
         }
+        #outputBlock {
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+            margin: 20px 0;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .control-buttons input[type="button"] {
+            padding: 8px 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -194,6 +225,15 @@
             Найти степень числа
         </div>
         <div class="message" onclick="showAuthor()">Узнать, кто автор страницы</div>
+        
+        <!-- Добавленный блок для пункта 10 -->
+        <div class="control-buttons">
+            <input type="button" value="Кнопка 1" onclick="changeBlock(1, '#FFD700', '#000', 'dotted', '10px', '3px')">
+            <input type="button" value="Кнопка 2" onclick="changeBlock(2, '#98FB98', '#333', 'dashed', '20px', '2px')">
+            <input type="button" value="Кнопка 3" onclick="changeBlock(3, '#87CEFA', '#FFF', 'double', '30px', '4px')">
+            <input type="button" value="Кнопка 4" onclick="changeBlock(4, '#FFA07A', '#000', 'solid', '40px', '1px')">
+        </div>
+        <div id="outputBlock">Здесь будет изменяемый текст</div>
     </main>
     <footer ondblclick="showWelcome()">
         <p>&copy; Арышева Арина, ФБИ-34, 2 курс, 2025</p> 
