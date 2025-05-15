@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивные фильтры для изображения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .image-container {
+            position: relative;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            background-color: #fff;
+        }
+        
+        #filter-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+            display: block;
+        }
+        
+        .info-panel {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .filter-info {
+            font-size: 16px;
+            margin: 12px 0;
+            padding: 12px;
+            background-color: #f0f8ff;
+            border-radius: 6px;
+            border-left: 4px solid #4682b4;
+        }
+        
+        .help {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #2c3e50;
+            margin: 30px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .help ul {
+            padding-left: 20px;
+        }
+        
+        .help li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 650px) {
+            .image-container {
+                height: 300px;
+            }
+            
+            .filter-info {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Интерактивные фильтры для изображения</h1>
+    
+    <div class="image-container">
+        <img id="filter-image" src="lab5/images/images (1).jpg" alt="Пример изображения с фильтрами">
+    </div>
+    
+    <div class="info-panel">
+        <div class="filter-info" id="main-filter-info">
+            Активный фильтр: <strong>Яркость (brightness)</strong> - 100%
+        </div>
+        <div class="filter-info" id="ctrl-filter-info">
+            Фильтр при Ctrl: не активен
+        </div>
+        <div class="filter-info" id="alt-filter-info">
+            Фильтр при Alt: не активен
+        </div>
+        <div class="filter-info" id="shift-filter-info">
+            Фильтр при Shift: не активен
+        </div>
+    </div>
+    
+    <div class="help">
+        <h2>Как это работает?</h2>
+        <p><strong>Основной фильтр (brightness)</strong>:</p>
+        <ul>
+            <li>Двигайте мышью горизонтально по изображению</li>
+            <li>Левый край - минимальный эффект (яркость 100%)</li>
+            <li>Правый край - максимальный эффект (яркость 0%)</li>
+        </ul>
+        
+        <p><strong>Дополнительные фильтры</strong>:</p>
+        <ul>
+            <li><strong>Ctrl + движение мыши</strong> - размытие (blur) от 0px до 10px</li>
+            <li><strong>Alt + движение мыши</strong> - эффект сепии (sepia) от 0% до 100%</li>
+            <li><strong>Shift + движение мыши</strong> - изменение цветового тона (hue-rotate) от 0° до 360°</li>
+        </ul>
+        
+        <p><strong>Советы</strong>:</p>
+        <ul>
+            <li>Можно комбинировать несколько фильтров одновременно</li>
+            <li>При выходе курсора за пределы изображения фильтры сбрасываются</li>
+        </ul>
+    </div>
+
+    <script>
+        const image = document.getElementById('filter-image');
+        const mainFilterInfo = document.getElementById('main-filter-info');
+        const ctrlFilterInfo = document.getElementById('ctrl-filter-info');
+        const altFilterInfo = document.getElementById('alt-filter-info');
+        const shiftFilterInfo = document.getElementById('shift-filter-info');
+        
+        // Обработчик движения мыши
+        image.addEventListener('mousemove', function(event) {
+            const rect = this.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const width = rect.width;
+            const percent = Math.round((x / width) * 100);
+            
+            // Основной фильтр (brightness)
+            const brightness = 100 - Math.max(0, Math.min(100, percent));
+            
+            // Фильтры при нажатых клавишах
+            let filterString = `brightness(${brightness}%)`;
+            let infoText = `Активный фильтр: <strong>Яркость (brightness)</strong> - ${brightness}%`;
+            
+            // Функция для обновления информации о фильтрах
+            const updateFilterInfo = (key, name, value, unit, isActive) => {
+                const element = {
+                    'ctrl': ctrlFilterInfo,
+                    'alt': altFilterInfo,
+                    'shift': shiftFilterInfo
+                }[key];
+                
+                if (isActive) {
+                    filterString += ` ${name}(${value}${unit})`;
+                    infoText += ` | <strong>${name}</strong> - ${value}${unit}`;
+                    element.textContent = `Фильтр при ${key === 'ctrl' ? 'Ctrl' : key === 'alt' ? 'Alt' : 'Shift'}: ${name} - ${value}${unit}`;
+                } else {
+                    element.textContent = `Фильтр при ${key === 'ctrl' ? 'Ctrl' : key === 'alt' ? 'Alt' : 'Shift'}: не активен`;
+                }
+            };
+            
+            // Применяем фильтры в зависимости от нажатых клавиш
+            updateFilterInfo('ctrl', 'blur', (percent / 100 * 10).toFixed(1), 'px', event.ctrlKey);
+            updateFilterInfo('alt', 'sepia', percent, '%', event.altKey);
+            updateFilterInfo('shift', 'hue-rotate', Math.round(percent / 100 * 360), 'deg', event.shiftKey);
+            
+            // Применяем фильтры
+            image.style.filter = filterString;
+            mainFilterInfo.innerHTML = infoText;
+        });
+        
+        // Сброс фильтров при выходе за пределы изображения
+        image.addEventListener('mouseleave', function() {
+            image.style.filter = 'brightness(100%)';
+            mainFilterInfo.innerHTML = 'Активный фильтр: <strong>Яркость (brightness)</strong> - 100%';
+            ctrlFilterInfo.textContent = "Фильтр при Ctrl: не активен";
+            altFilterInfo.textContent = "Фильтр при Alt: не активен";
+            shiftFilterInfo.textContent = "Фильтр при Shift: не активен";
+        });
+    </script>
+</body>
+</html>
