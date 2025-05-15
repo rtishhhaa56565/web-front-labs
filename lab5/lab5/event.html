@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Работа с событиями</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        
+        #coords-block {
+            width: 200px;
+            height: 200px;
+            border: 2px solid #333;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: crosshair;
+            transition: all 0.3s ease;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        
+        .coord {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        
+        .key-info {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        /* Стили для нажатых клавиш */
+        .ctrl-pressed {
+            color: red;
+        }
+        
+        .alt-pressed {
+            background-color: #f0f8ff;
+            border-color: #4682b4;
+        }
+        
+        .shift-pressed {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div id="coords-block" onmousemove="showCoords(event)">
+        <div class="coord">Наведите курсор на блок</div>
+        <div class="coord" id="x-coord">X: 0</div>
+        <div class="coord" id="y-coord">Y: 0</div>
+        <div class="key-info" id="key-status"></div>
+    </div>
+
+    <script>
+        function showCoords(event) {
+            const block = document.getElementById('coords-block');
+            const xCoord = document.getElementById('x-coord');
+            const yCoord = document.getElementById('y-coord');
+            const keyStatus = document.getElementById('key-status');
+            
+            // Получаем координаты относительно блока
+            const rect = block.getBoundingClientRect();
+            const x = event.clientX - rect.left;
+            const y = event.clientY - rect.top;
+            
+            // Обновляем координаты
+            xCoord.textContent = `X: ${Math.round(x)}`;
+            yCoord.textContent = `Y: ${Math.round(y)}`;
+            
+            // Проверяем нажатые клавиши
+            const ctrlPressed = event.ctrlKey;
+            const altPressed = event.altKey;
+            const shiftPressed = event.shiftKey;
+            
+            // Управляем стилями
+            if (ctrlPressed) {
+                block.classList.add('ctrl-pressed');
+            } else {
+                block.classList.remove('ctrl-pressed');
+            }
+            
+            if (altPressed) {
+                block.classList.add('alt-pressed');
+            } else {
+                block.classList.remove('alt-pressed');
+            }
+            
+            if (shiftPressed) {
+                block.classList.add('shift-pressed');
+            } else {
+                block.classList.remove('shift-pressed');
+            }
+            
+            // Формируем текст о нажатых клавишах
+            let keysText = [];
+            if (ctrlPressed) keysText.push('Ctrl');
+            if (altPressed) keysText.push('Alt');
+            if (shiftPressed) keysText.push('Shift');
+            
+            if (keysText.length > 0) {
+                keyStatus.textContent = `Нажаты: ${keysText.join(', ')}`;
+            } else {
+                keyStatus.textContent = '';
+            }
+        }
+    </script>
+</body>
+</html>
