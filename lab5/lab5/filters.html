@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <title>Фильтры для изображений</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.2em;
+        }
+        header p {
+            margin: 5px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .filter-control {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .filter-control label {
+            min-width: 150px;
+            font-weight: bold;
+        }
+        .filter-control input[type="range"] {
+            flex-grow: 1;
+        }
+        #imageContainer {
+            text-align: center;
+            margin: 30px 0;
+        }
+        #image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #ddd;
+        }
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Фильтры для изображений</h1>
+        <p>Лабораторная работа по курсу "Web-программирование"</p>
+    </header>
+    
+    <main>
+        <h2>Применение фильтров к изображению</h2>
+        
+        <div class="filter-control">
+            <label for="blurValue">Размытие (blur):</label>
+            <input type="range" id="blurValue" min="0" max="20" value="0" onchange="applyBlur()">
+            <span id="blurValueOutput">0px</span>
+        </div>
+        
+        <div id="imageContainer">
+            <img id="image" src="images/blue-bird.jpg" alt="Синяя птица на черном фоне">
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; Арышева Арина, ФБИ-34, 2 курс, 2025</p>
+    </footer>
+
+    <script>
+        function applyBlur() {
+            const blurValue = document.getElementById("blurValue").value;
+            const image = document.getElementById("image");
+            const blurValueOutput = document.getElementById("blurValueOutput");
+            
+            image.style.filter = `blur(${blurValue}px)`;
+            blurValueOutput.textContent = `${blurValue}px`;
+        }
+    </script>
+</body>
+</html>
