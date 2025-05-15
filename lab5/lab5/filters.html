@@ -53,6 +53,10 @@
         .filter-control input[type="range"] {
             flex-grow: 1;
         }
+        .filter-value {
+            min-width: 60px;
+            text-align: right;
+        }
         #imageContainer {
             text-align: center;
             margin: 30px 0;
@@ -63,6 +67,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             border: 1px solid #ddd;
+            transition: filter 0.3s ease;
         }
         footer {
             background-color: #2c3e50;
@@ -82,10 +87,60 @@
     <main>
         <h2>Применение фильтров к изображению</h2>
         
+        <!-- Фильтр Blur -->
         <div class="filter-control">
             <label for="blurValue">Размытие (blur):</label>
-            <input type="range" id="blurValue" min="0" max="20" value="0" onchange="applyBlur()">
-            <span id="blurValueOutput">0px</span>
+            <input type="range" id="blurValue" min="0" max="20" value="0">
+            <span id="blurValueOutput" class="filter-value">0px</span>
+        </div>
+        
+        <!-- Фильтр Brightness -->
+        <div class="filter-control">
+            <label for="brightnessValue">Яркость (brightness):</label>
+            <input type="range" id="brightnessValue" min="0" max="500" value="100">
+            <span id="brightnessValueOutput" class="filter-value">100%</span>
+        </div>
+        
+        <!-- Фильтр Contrast -->
+        <div class="filter-control">
+            <label for="contrastValue">Контраст (contrast):</label>
+            <input type="range" id="contrastValue" min="0" max="500" value="100">
+            <span id="contrastValueOutput" class="filter-value">100%</span>
+        </div>
+        
+        <!-- Фильтр Grayscale -->
+        <div class="filter-control">
+            <label for="grayscaleValue">Оттенки серого (grayscale):</label>
+            <input type="range" id="grayscaleValue" min="0" max="100" value="0">
+            <span id="grayscaleValueOutput" class="filter-value">0%</span>
+        </div>
+        
+        <!-- Фильтр Hue-Rotate -->
+        <div class="filter-control">
+            <label for="hueRotateValue">Цветовой тон (hue-rotate):</label>
+            <input type="range" id="hueRotateValue" min="0" max="360" value="0">
+            <span id="hueRotateValueOutput" class="filter-value">0deg</span>
+        </div>
+        
+        <!-- Фильтр Invert -->
+        <div class="filter-control">
+            <label for="invertValue">Инверсия (invert):</label>
+            <input type="range" id="invertValue" min="0" max="100" value="0">
+            <span id="invertValueOutput" class="filter-value">0%</span>
+        </div>
+        
+        <!-- Фильтр Saturate -->
+        <div class="filter-control">
+            <label for="saturateValue">Насыщенность (saturate):</label>
+            <input type="range" id="saturateValue" min="0" max="500" value="100">
+            <span id="saturateValueOutput" class="filter-value">100%</span>
+        </div>
+        
+        <!-- Фильтр Sepia -->
+        <div class="filter-control">
+            <label for="sepiaValue">Сепия (sepia):</label>
+            <input type="range" id="sepiaValue" min="0" max="100" value="0">
+            <span id="sepiaValueOutput" class="filter-value">0%</span>
         </div>
         
         <div id="imageContainer">
@@ -98,14 +153,98 @@
     </footer>
 
     <script>
-        function applyBlur() {
-            const blurValue = document.getElementById("blurValue").value;
-            const image = document.getElementById("image");
-            const blurValueOutput = document.getElementById("blurValueOutput");
+        // Объект для хранения текущих фильтров
+        const filters = {
+            blur: { value: 0, unit: 'px' },
+            brightness: { value: 100, unit: '%' },
+            contrast: { value: 100, unit: '%' },
+            grayscale: { value: 0, unit: '%' },
+            'hue-rotate': { value: 0, unit: 'deg' },
+            invert: { value: 0, unit: '%' },
+            saturate: { value: 100, unit: '%' },
+            sepia: { value: 0, unit: '%' }
+        };
+
+        // Функция для обновления всех фильтров
+        function updateFilters() {
+            const image = document.getElementById('image');
+            let filterString = '';
             
-            image.style.filter = `blur(${blurValue}px)`;
-            blurValueOutput.textContent = `${blurValue}px`;
+            for (const [filterName, params] of Object.entries(filters)) {
+                if (params.value !== getDefaultValue(filterName)) {
+                    filterString += `${filterName}(${params.value}${params.unit}) `;
+                }
+            }
+            
+            image.style.filter = filterString.trim() || 'none';
         }
+
+        // Получение значения по умолчанию для каждого фильтра
+        function getDefaultValue(filterName) {
+            switch(filterName) {
+                case 'blur': return 0;
+                case 'hue-rotate': return 0;
+                case 'brightness':
+                case 'contrast':
+                case 'saturate': return 100;
+                default: return 0;
+            }
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Назначение обработчиков для всех ползунков
+            document.getElementById('blurValue').addEventListener('input', function() {
+                filters.blur.value = this.value;
+                document.getElementById('blurValueOutput').textContent = this.value + 'px';
+                updateFilters();
+            });
+            
+            document.getElementById('brightnessValue').addEventListener('input', function() {
+                filters.brightness.value = this.value;
+                document.getElementById('brightnessValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            document.getElementById('contrastValue').addEventListener('input', function() {
+                filters.contrast.value = this.value;
+                document.getElementById('contrastValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            document.getElementById('grayscaleValue').addEventListener('input', function() {
+                filters.grayscale.value = this.value;
+                document.getElementById('grayscaleValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            document.getElementById('hueRotateValue').addEventListener('input', function() {
+                filters['hue-rotate'].value = this.value;
+                document.getElementById('hueRotateValueOutput').textContent = this.value + 'deg';
+                updateFilters();
+            });
+            
+            document.getElementById('invertValue').addEventListener('input', function() {
+                filters.invert.value = this.value;
+                document.getElementById('invertValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            document.getElementById('saturateValue').addEventListener('input', function() {
+                filters.saturate.value = this.value;
+                document.getElementById('saturateValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            document.getElementById('sepiaValue').addEventListener('input', function() {
+                filters.sepia.value = this.value;
+                document.getElementById('sepiaValueOutput').textContent = this.value + '%';
+                updateFilters();
+            });
+            
+            // Первоначальное обновление фильтров
+            updateFilters();
+        });
     </script>
 </body>
 </html>
