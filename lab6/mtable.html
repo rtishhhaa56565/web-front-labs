@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арышева Арина. Лабораторная 6</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #e0e0e0; /* Светло-серый */
+            color: #333; /* Тёмный текст */
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        main {
+            background-color: #f8f8f8; /* Светло-серый */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background-color: #e0e0e0; /* Светло-серый */
+            color: #333; /* Тёмный текст */
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #e0e0e0; /* Светло-серый */
+            color: #333; /* Тёмный текст */
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .controls {
+            background-color: #f0f0f0; /* Светло-серый */
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 80px;
+            background-color: white;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #555; /* Тёмно-серый */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>НГТУ, ФБИ, Лабораторная работа 6</h1>
+    </header>
+    
+    <main>
+        <div id="mtable">
+            <h2>Таблица умножения</h2>
+            <div id="multiplication-table"></div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="multiplier">Умножить на:</label>
+                    <input type="number" id="multiplier" value="1" min="1">
+                </div>
+                
+                <div class="control-group">
+                    <label for="start">Начать с:</label>
+                    <input type="number" id="start" value="1" min="1">
+                </div>
+                
+                <div class="control-group">
+                    <label for="end">Закончить на:</label>
+                    <input type="number" id="end" value="10" min="1">
+                </div>
+                
+                <button onclick="generateTable()">Таблица</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        &copy; Арышева Арина, ФБИ-34, 2 курс, 2025
+    </footer>
+
+    <script>
+        function generateTable() {
+            // Получаем значения из полей ввода
+            const multiplier = parseInt(document.getElementById('multiplier').value);
+            const start = parseInt(document.getElementById('start').value);
+            const end = parseInt(document.getElementById('end').value);
+            
+            // Проверяем корректность ввода
+            if (start > end) {
+                alert('"Начать с" должно быть меньше или равно "Закончить на"');
+                return;
+            }
+            
+            // Создаем HTML для таблицы
+            let tableHTML = '<table><thead><tr><th>Число</th><th>Результат</th></tr></thead><tbody>';
+            
+            // Заполняем таблицу
+            for (let i = start; i <= end; i++) {
+                tableHTML += `<tr><td>${i} × ${multiplier}</td><td>${i * multiplier}</td></tr>`;
+            }
+            
+            tableHTML += '</tbody></table>';
+            
+            // Вставляем таблицу на страницу
+            document.getElementById('multiplication-table').innerHTML = tableHTML;
+        }
+        
+        // Генерируем таблицу при загрузке страницы
+        window.onload = generateTable;
+    </script>
+</body>
+</html>
