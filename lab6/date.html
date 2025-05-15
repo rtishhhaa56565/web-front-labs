@@ -24,6 +24,7 @@
             padding: 20px 0;
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: color 0.5s ease-in-out;
         }
         
         main {
@@ -87,6 +88,46 @@
             padding: 15px;
             margin-top: 30px;
         }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #startBtn {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        #startBtn:hover {
+            background-color: #27ae60;
+        }
+        
+        #stopBtn {
+            background-color: #e74c3c;
+            color: white;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        #stopBtn:hover {
+            background-color: #c0392b;
+        }
+        
+        #stopBtn.active {
+            opacity: 1;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +136,11 @@
     </header>
     
     <main>
+        <div class="controls">
+            <button id="startBtn">Старт</button>
+            <button id="stopBtn">Стоп</button>
+        </div>
+        
         <div class="date-container">
             <div class="locale-name">Текущая дата и время (Россия):</div>
             <div id="current-date" class="date-output"></div>
@@ -225,6 +271,34 @@
         
         // Вызываем функцию после загрузки страницы
         window.onload = showDate;
+
+        // Добавляем функционал для изменения цвета заголовка
+        let colorInterval;
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const header = document.getElementsByTagName('header')[0];
+
+        function changeColors() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            header.style.color = `rgb(${r}, ${g}, ${b})`;
+        }
+
+        startBtn.addEventListener('click', function() {
+            // Запускаем смену цветов каждые 0.8 секунды (можно изменить)
+            colorInterval = setInterval(changeColors, 800);
+            startBtn.disabled = true;
+            stopBtn.classList.add('active');
+            stopBtn.disabled = false;
+        });
+
+        stopBtn.addEventListener('click', function() {
+            clearInterval(colorInterval);
+            stopBtn.classList.remove('active');
+            stopBtn.disabled = true;
+            startBtn.disabled = false;
+        });
     </script>
 </body>
 </html>
