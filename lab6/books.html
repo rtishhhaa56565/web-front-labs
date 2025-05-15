@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список книг</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        main {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .book {
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+            transition: transform 0.3s ease;
+        }
+        
+        .book:hover {
+            transform: translateY(-5px);
+        }
+        
+        .book-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .book-author {
+            color: #666;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .book-price {
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 8px;
+        }
+        
+        .bestseller {
+            background-color: #fff8e1;
+            border-left-color: #ffc107;
+        }
+        
+        .bestseller-badge {
+            display: inline-block;
+            background-color: #ffc107;
+            color: #333;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        
+        .out-of-stock {
+            opacity: 0.6;
+            position: relative;
+        }
+        
+        .out-of-stock::after {
+            content: "Нет в наличии";
+            display: block;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Книжный магазин</h1>
+    </header>
+    
+    <main>
+        <h1>Список книг</h1>
+        <div id="book-list" class="book-list"></div>
+    </main>
+
+    <footer>
+        &copy; Арышева Арина, ФБИ-34, 2 курс, 2025
+    </footer>
+
+    <script src="books.js"></script>
+    <script>
+        function showBooks() {
+            const bookList = document.getElementById('book-list');
+            
+            books.forEach(book => {
+                const bookElement = document.createElement('div');
+                bookElement.className = 'book';
+                
+                if (book.bestseller) {
+                    bookElement.classList.add('bestseller');
+                }
+                
+                if (!book.inStock) {
+                    bookElement.classList.add('out-of-stock');
+                }
+                
+                bookElement.innerHTML = `
+                    <div class="book-title">
+                        ${book.title}
+                        ${book.bestseller ? '<span class="bestseller-badge">Бестселлер</span>' : ''}
+                    </div>
+                    <div class="book-author">${book.author}</div>
+                    <div class="book-price">${book.price} ₽</div>
+                    <div class="book-year">Год издания: ${book.year}</div>
+                    <div class="book-genre">Жанр: ${book.genre}</div>
+                `;
+                
+                bookList.appendChild(bookElement);
+            });
+        }
+        
+        window.onload = showBooks;
+    </script>
+</body>
+</html>
