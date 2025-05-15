@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Круги</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            padding-bottom: 60px; /* Для места под футер */
+            box-sizing: border-box;
+        }
+        
+        .circle {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        #reset-btn {
+            position: fixed;
+            bottom: 80px; /* Подняли выше, чтобы не мешал футеру */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
+        #reset-btn:hover {
+            background-color: #555;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <button id="reset-btn">Сбросить</button>
+
+    <script>
+        // Создаем 10 кругов
+        for (let i = 1; i <= 10; i++) {
+            const circle = document.createElement('div');
+            circle.className = 'circle';
+            circle.textContent = i;
+            
+            // Случайный цвет
+            const hue = Math.floor(Math.random() * 360);
+            circle.style.backgroundColor = `hsl(${hue}, 70%, 60%)`;
+            
+            // Случайная позиция
+            const maxX = window.innerWidth - 80;
+            const maxY = window.innerHeight - 150; /* Учитываем место под футер и кнопку */
+            circle.style.left = `${Math.floor(Math.random() * maxX)}px`;
+            circle.style.top = `${Math.floor(Math.random() * maxY)}px`;
+            
+            // Обработчик клика
+            circle.addEventListener('click', function() {
+                this.style.width = '0';
+                this.style.height = '0';
+                this.style.opacity = '0';
+            });
+            
+            document.body.appendChild(circle);
+        }
+        
+        // Обработчик кнопки сброса
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            const circles = document.querySelectorAll('.circle');
+            circles.forEach(circle => {
+                circle.style.width = '80px';
+                circle.style.height = '80px';
+                circle.style.opacity = '1';
+            });
+        });
+    </script>
+
+    <footer>
+        <p>&copy; Арышева Арина, ФБИ-34, 2 курс, 2025</p> 
+    </footer>
+</body>
+</html>
