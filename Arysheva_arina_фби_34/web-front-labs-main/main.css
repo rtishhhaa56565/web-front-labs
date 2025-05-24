@@ -1,0 +1,27 @@
+body {
+    background-color: LightBlue;
+    color: maroon;
+    font-family: Arial, sans-serif;
+    margin: 0px;
+  }
+  
+  header {
+    background-color: DarkBlue;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  main {
+    background-color: LightGray;
+    color: black;
+    padding: 20px;
+  }
+  
+  footer {
+    background-color: DarkRed;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
