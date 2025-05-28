@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТГК-1 - Курс валют</title>
+    <style>
+        /* Основные стили */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Стили для контейнера */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        
+        /* Стили для бокового меню */
+        .sidebar {
+            width: 250px;
+            background-color: #1a3e72;
+            color: white;
+            padding: 20px 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 150px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        /* Подсветка при наведении */
+        .sidebar a:hover {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+        }
+        
+        /* Стиль для активной страницы */
+        .sidebar a.active {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+            font-weight: bold;
+        }
+        
+        /* Основное содержимое */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1, h2 {
+            color: #1a3e72;
+        }
+        
+        /* Стили для калькулятора валют */
+        .currency-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .currency-calculator, .currency-chart {
+            background-color: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .converter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .converter input, .converter select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .converter input {
+            width: 120px;
+        }
+        
+        #convert-btn {
+            background-color: #1a3e72;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        #convert-btn:hover {
+            background-color: #2a4e82;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        
+        #conversion-result {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a3e72;
+        }
+        
+        /* Стили для графика */
+        .currency-chart {
+            margin-top: 20px;
+        }
+        
+        #currencyChart {
+            max-height: 400px;
+            margin-top: 20px;
+        }
+        
+        #chart-info {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            font-style: italic;
+        }
+        
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1a3e72;
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .back-to-top:hover {
+            background-color: #2a4e82;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="sidebar">
+            <img src="images/logo.jpg" alt="ТГК-1" class="logo">
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="about.html">О компании</a></li>
+                <li><a href="news.html">Новости</a></li>
+                <li><a href="currency.html" class="active">Курс валют</a></li>
+                <li><a href="contacts.html">Контакты</a></li>
+                <li><a href="video.html">Видео</a></li>
+            </ul>
+        </nav>
+
+        <main class="content">
+            <h1>Курс венгерского форинта (HUF)</h1>
+            
+            <div class="currency-container">
+                <div class="currency-calculator">
+                    <h2>Калькулятор валют</h2>
+                    <div class="converter">
+                        <input type="number" id="amount" placeholder="Сумма">
+                        <select id="from-currency">
+                            <option value="RUB">Рубли (RUB)</option>
+                            <option value="HUF">Форинты (HUF)</option>
+                        </select>
+                        <span>→</span>
+                        <select id="to-currency">
+                            <option value="HUF">Форинты (HUF)</option>
+                            <option value="RUB">Рубли (RUB)</option>
+                        </select>
+                        <button id="convert-btn">Рассчитать</button>
+                    </div>
+                    <div class="result">
+                        <h3>Результат:</h3>
+                        <p id="conversion-result">0.00</p>
+                    </div>
+                </div>
+                
+                <div class="currency-chart">
+                    <h2>Динамика курса за последний месяц</h2>
+                    <canvas id="currencyChart"></canvas>
+                    <div id="chart-info"></div>
+                </div>
+            </div>
+            <a href="#" class="back-to-top">↑</a>
+        </main>
+    </div>
+
+    <script>
+        // Скрипт для подсветки текущей страницы в меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const menuLinks = document.querySelectorAll('.sidebar a');
+            
+            menuLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Скрипт для калькулятора валют (примерный)
+            document.getElementById('convert-btn').addEventListener('click', function() {
+                const amount = parseFloat(document.getElementById('amount').value);
+                const fromCurrency = document.getElementById('from-currency').value;
+                const toCurrency = document.getElementById('to-currency').value;
+                
+                // Здесь должен быть реальный API-запрос для получения курса
+                const exchangeRate = 0.25; // Примерный курс 1 HUF = 0.25 RUB
+                
+                let result;
+                if (fromCurrency === 'RUB' && toCurrency === 'HUF') {
+                    result = amount / exchangeRate;
+                } else {
+                    result = amount * exchangeRate;
+                }
+                
+                document.getElementById('conversion-result').textContent = result.toFixed(2);
+            });
+
+            // Скрипт для графика (примерный)
+            const ctx = document.getElementById('currencyChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1 мая', '5 мая', '10 мая', '15 мая', '20 мая', '25 мая', '30 мая'],
+                    datasets: [{
+                        label: 'Курс HUF/RUB',
+                        data: [0.24, 0.245, 0.25, 0.248, 0.252, 0.255, 0.253],
+                        backgroundColor: '#1a3e72',
+                        borderColor: '#1a3e72',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false
+                        }
+                    },
+                    onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const index = elements[0].index;
+                            const date = chart.data.labels[index];
+                            const rate = chart.data.datasets[0].data[index];
+                            document.getElementById('chart-info').textContent = 
+                                `${date}: 1 HUF = ${rate} RUB`;
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
