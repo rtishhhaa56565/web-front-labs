@@ -4,12 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ТГК-1 - Новости</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Основные стили */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Стили для контейнера */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        
+        /* Стили для бокового меню */
+        .sidebar {
+            width: 250px;
+            background-color: #1a3e72;
+            color: white;
+            padding: 20px 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 150px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        /* Подсветка при наведении */
+        .sidebar a:hover {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+        }
+        
+        /* Стиль для активной страницы */
+        .sidebar a.active {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+            font-weight: bold;
+        }
+        
+        /* Основное содержимое */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #1a3e72;
+            margin-bottom: 30px;
+        }
+        
+        /* Стили для новостей */
+        .news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .news-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            color: #1a3e72;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        
+        .news-preview {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .news-toggle {
+            background-color: #1a3e72;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .news-toggle:hover {
+            background-color: #2a4e82;
+        }
+        
+        .news-full {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1a3e72;
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .back-to-top:hover {
+            background-color: #2a4e82;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <nav class="sidebar">
-            <img src="images/logo.png" alt="ТГК-1" class="logo">
+            <img src="images/logo.jpg" alt="ТГК-1" class="logo">
             <ul>
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="about.html">О компании</a></li>
@@ -46,12 +197,41 @@
                     </div>
                 </div>
                 
-                <!-- Ещё 8 новостей по аналогии -->
+                <!-- Добавьте остальные 8 новостей по аналогии -->
                 
             </div>
+            <a href="#" class="back-to-top">↑</a>
         </main>
     </div>
 
-    <script src="js/script.js"></script>
+    <script>
+        // Скрипт для подсветки текущей страницы в меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const menuLinks = document.querySelectorAll('.sidebar a');
+            
+            menuLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Скрипт для показа/скрытия полного текста новости
+            const toggleButtons = document.querySelectorAll('.news-toggle');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const fullText = this.nextElementSibling;
+                    if (fullText.style.display === 'block') {
+                        fullText.style.display = 'none';
+                        this.textContent = 'Показать полностью';
+                    } else {
+                        fullText.style.display = 'block';
+                        this.textContent = 'Скрыть';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
