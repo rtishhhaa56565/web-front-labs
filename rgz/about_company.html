@@ -4,12 +4,138 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ТГК-1 - О компании</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Основные стили */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Стили для контейнера */
+        .container {
+            display: flex;
+            width: 100%;
+        }
+        
+        /* Стили для бокового меню */
+        .sidebar {
+            width: 250px;
+            background-color: #1a3e72;
+            color: white;
+            padding: 20px 0;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 30px;
+            width: 150px;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar li {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        /* Подсветка при наведении */
+        .sidebar a:hover {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+        }
+        
+        /* Стиль для активной страницы */
+        .sidebar a.active {
+            background-color: #2a4e82;
+            border-left: 4px solid #ffcc00;
+            font-weight: bold;
+        }
+        
+        /* Основное содержимое */
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .about-section {
+            background-color: white;
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        h1, h2, h3 {
+            color: #1a3e72;
+        }
+        
+        .image-container {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .timeline {
+            margin: 20px 0;
+        }
+        
+        .timeline-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #1a3e72;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1a3e72;
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+        
+        .back-to-top:hover {
+            background-color: #2a4e82;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <nav class="sidebar">
-            <img src="images/logo.png" alt="ТГК-1" class="logo">
+            <img src="images/logo.jpg" alt="ТГК-1" class="logo">
             <ul>
                 <li><a href="index.html">Главная</a></li>
                 <li><a href="about.html" class="active">О компании</a></li>
@@ -30,7 +156,7 @@
                     <p>Компания была создана <u>1 октября 2005 года</u> в результате реформы РАО "ЕЭС России". <em>Основными учредителями</em> стали государство и частные инвесторы.</p>
                     
                     <div class="image-container">
-                        <img src="images/station1.jpg" alt="Электростанция ТГК-1">
+                        <img src="images/images (2).jpg" alt="Электростанция ТГК-1">
                         <p><em>Одна из электростанций ТГК-1</em></p>
                     </div>
                 </article>
@@ -68,6 +194,19 @@
         </main>
     </div>
 
-    <script src="js/script.js"></script>
+    <script>
+        // Скрипт для подсветки текущей страницы в меню
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const menuLinks = document.querySelectorAll('.sidebar a');
+            
+            menuLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (currentPage === linkPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
