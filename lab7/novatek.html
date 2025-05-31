@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Котировки акций НОВАТЭК</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .positive {
+            color: green;
+        }
+        .negative {
+            color: red;
+        }
+        .stats {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Котировки акций НОВАТЭК</h2>
+    <button id="loadBtn">Показать курс акций НОВАТЭК</button>
+    
+    <table id="stocksTable">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Цена акций (руб.)</th>
+                <th>Разница</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    
+    <div id="stats" class="stats"></div>
+
+    <script>
+        // Данные по акциям НОВАТЭК (примерные значения)
+        const stockData = {
+            dates: ['2023-05-01', '2023-05-02', '2023-05-03', '2023-05-04', '2023-05-05', 
+                   '2023-05-08', '2023-05-09', '2023-05-10', '2023-05-11', '2023-05-12'],
+            prices: [1250.50, 1265.30, 1248.75, 1270.20, 1265.80, 
+                    1278.90, 1260.40, 1255.60, 1268.30, 1275.50]
+        };
+
+        document.getElementById('loadBtn').addEventListener('click', function() {
+            const btn = this;
+            const tbody = document.querySelector('#stocksTable tbody');
+            const statsElement = document.getElementById('stats');
+            
+            // Скрываем кнопку после нажатия
+            btn.style.display = 'none';
+            
+            try {
+                const dates = stockData.dates;
+                const prices = stockData.prices;
+                
+                if (!dates || !prices || dates.length !== prices.length || dates.length === 0) {
+                    throw new Error('Нет данных о котировках');
+                }
+                
+                // Заполняем таблицу
+                let sum = 0;
+                for (let i = 0; i < dates.length; i++) {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = dates[i];
+                    row.insertCell().textContent = prices[i].toFixed(2);
+                    
+                    // Вычисляем разницу
+                    const diffCell = row.insertCell();
+                    if (i > 0) {
+                        const diff = prices[i] - prices[i-1];
+                        diffCell.textContent = diff.toFixed(2);
+                        
+                        // Окрашиваем разницу
+                        if (diff > 0) {
+                            diffCell.classList.add('positive');
+                        } else if (diff < 0) {
+                            diffCell.classList.add('negative');
+                        }
+                    } else {
+                        diffCell.textContent = '-';
+                    }
+                    
+                    sum += prices[i];
+                }
+                
+                // Вычисляем статистику
+                const average = sum / prices.length;
+                const maxPrice = Math.max(...prices);
+                const minPrice = Math.min(...prices);
+                
+                // Выводим статистику
+                statsElement.innerHTML = `
+                    <h3>Статистика по акциям НОВАТЭК</h3>
+                    <p>Средняя стоимость: ${average.toFixed(2)} руб.</p>
+                    <p>Максимальная стоимость: ${maxPrice.toFixed(2)} руб.</p>
+                    <p>Минимальная стоимость: ${minPrice.toFixed(2)} руб.</p>
+                `;
+                
+            } catch (error) {
+                statsElement.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+                console.error('Ошибка:', error);
+            }
+        });
+    </script>
+</body>
+</html>
