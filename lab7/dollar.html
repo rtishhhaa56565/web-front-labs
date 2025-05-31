@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс доллара ЦБ РФ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #average {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        #detail {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Курс доллара ЦБ РФ</h2>
+    <button id="loadBtn">Показать курс за 10 дней</button>
+    <div id="detail"></div>
+    <table id="ratesTable">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Курс (руб.)</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="average"></div>
+
+    <script src="dollar-data.js"></script>
+    <script>
+        document.getElementById('loadBtn').addEventListener('click', async function() {
+            const btn = this;
+            const detail = document.getElementById('detail');
+            const tbody = document.querySelector('#ratesTable tbody');
+            const averageElement = document.getElementById('average');
+            
+            // Скрываем кнопку после нажатия
+            btn.style.display = 'none';
+            
+            try {
+                const rates = await getExchangeRates();
+                
+                if (!rates || rates.length === 0) {
+                    throw new Error('Нет данных о курсах');
+                }
+                
+                // Заполняем таблицу
+                let sum = 0;
+                rates.forEach(item => {
+                    const row = tbody.insertRow();
+                    row.insertCell().textContent = item.date;
+                    row.insertCell().textContent = item.rate.toFixed(2);
+                    sum += item.rate;
+                });
+                
+                // Вычисляем среднее значение
+                const average = sum / rates.length;
+                averageElement.textContent = `Средний курс: ${average.toFixed(2)} руб.`;
+                
+                // Выводим дополнительную информацию в блок detail
+                detail.innerHTML = `
+                    <p>Анализ курса за ${rates.length} дней:</p>
+                    <p>Максимальный курс: ${Math.max(...rates.map(r => r.rate)).toFixed(2)} руб.</p>
+                    <p>Минимальный курс: ${Math.min(...rates.map(r => r.rate)).toFixed(2)} руб.</p>
+                    <p>Средний курс: ${average.toFixed(2)} руб.</p>
+                `;
+                
+            } catch (error) {
+                detail.innerHTML = `<p style="color: red;">Ошибка: ${error.message}</p>`;
+                console.error('Ошибка:', error);
+            }
+        });
+    </script>
+</body>
+</html>
