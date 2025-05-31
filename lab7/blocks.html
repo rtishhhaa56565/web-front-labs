@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа 7</title>
+    <style>
+        .block {
+            height: 60px;
+            margin: 15px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 15px;
+        }
+        
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Лабораторная работа 7</h1>
+    </header>
+    
+    <main>
+        <button onclick="addBlock()">Добавить блок</button>
+        <div id="blocks"></div>
+    </main>
+
+    <footer>
+        &copy; 2024
+    </footer>
+
+    <script>
+        let counter = 1;
+        
+        function addBlock() {
+            const block = document.createElement('div');
+            block.className = 'block';
+            block.textContent = `Блок ${counter++}`;
+            document.getElementById('blocks').appendChild(block);
+        }
+        
+        // Добавляем первый блок при загрузке
+        addBlock();
+    </script>
+</body>
+</html>
