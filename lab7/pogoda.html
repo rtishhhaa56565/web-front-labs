@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз температуры в Новосибирске</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .temp-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .time-block {
+            margin: 10px 0;
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <h2>Температура в Новосибирске сегодня</h2>
+    <button id="loadBtn">Показать температуру</button>
+    
+    <div id="result" class="temp-card">
+        Нажмите кнопку для получения данных
+    </div>
+
+    <script>
+        document.getElementById('loadBtn').addEventListener('click', function() {
+            const btn = this;
+            const result = document.getElementById('result');
+            
+            btn.disabled = true;
+            result.textContent = 'Загрузка данных...';
+            
+            const apiUrl = 'https://api.open-meteo.com/v1/forecast?latitude=55.0415&longitude=82.9346&hourly=temperature_2m&timezone=Asia/Bangkok';
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const today = new Date().toISOString().split('T')[0];
+                    const times = data.hourly.time;
+                    const temps = data.hourly.temperature_2m;
+                    
+                    // Находим индексы для 8:00, 12:00 и 20:00
+                    const timeIndices = {
+                        '08:00': times.findIndex(t => t.includes(`${today}T08`)),
+                        '12:00': times.findIndex(t => t.includes(`${today}T12`)),
+                        '20:00': times.findIndex(t => t.includes(`${today}T20`))
+                    };
+                    
+                    let output = '<h3>Температура сегодня:</h3>';
+                    
+                    for (const [time, index] of Object.entries(timeIndices)) {
+                        if (index !== -1) {
+                            output += `
+                                <div class="time-block">
+                                    <b>${time}</b>: ${temps[index]}°C
+                                </div>
+                            `;
+                        }
+                    }
+                    
+                    result.innerHTML = output;
+                })
+                .catch(() => {
+                    result.innerHTML = '<p style="color:red">Ошибка загрузки данных</p>';
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                });
+        });
+    </script>
+</body>
+</html>
