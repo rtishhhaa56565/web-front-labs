@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арышева Арина. Лабораторная 8</title>
+    <link rel="stylesheet" href="../main.css">
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon-16x16.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../favicon-32x32.png" type="image/x-icon">
+    <style>
+        header h1 {
+            color: white;
+        }
+        body {
+            background-color: #333;
+        }
+        #app {
+            background-color: #444;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+            color: white;
+        }
+        .counter-display {
+            font-size: 24px;
+            margin: 15px 0;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        button:disabled {
+            background-color: #7f8c8d;
+            cursor: not-allowed;
+        }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <header>
+        <h1>НГТУ, ФБИ, Лабораторная работа 8</h1>
+    </header>
+    
+    <main>
+        <div id="app">
+            <h1 :title="messageRus">{{ message }}</h1>
+            <p class="counter-display">Счётчик: {{ counter }}</p>
+            
+            <!-- Кнопка ++ показывается только когда counter < 10 -->
+            <button @click="incCounter" v-if="counter < 10">++ Увеличить</button>
+            
+            <!-- Кнопка -- показывается только когда counter > 0 -->
+            <button @click="decCounter" v-if="counter > 0">-- Уменьшить</button>
+        </div>
+    </main>
+
+    <footer>
+        &copy; Арышева Арина, ФБИ-34, 2 курс, 2025
+    </footer>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    message: 'Hello!',
+                    messageRus: 'Привет!',
+                    counter: 0
+                }
+            },
+            methods: {
+                incCounter() {
+                    this.counter++;
+                },
+                decCounter() {
+                    this.counter--;
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
