@@ -42,7 +42,11 @@
         button:hover {
             background-color: #2980b9;
         }
-        .user-info {
+        button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+        .user-info, .flowers-section, .calculator-section {
             margin-top: 20px;
             padding: 15px;
             background-color: #555;
@@ -50,12 +54,6 @@
         }
         .user-info div {
             margin: 8px 0;
-        }
-        .flowers-section {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #555;
-            border-radius: 5px;
         }
         .flower-item {
             display: flex;
@@ -71,6 +69,30 @@
             display: flex;
             gap: 8px;
         }
+        .calculator-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .calculator-input {
+            background-color: #666;
+            color: white;
+            border: 1px solid #777;
+            padding: 8px;
+            border-radius: 4px;
+            width: 60px;
+        }
+        .calculator-result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #666;
+            margin: 20px 0;
+        }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -84,8 +106,8 @@
             <h1 :title="messageRus">{{ message }}</h1>
             <p class="counter-display">Счётчик: {{ counter }}</p>
             
-            <button @click="incCounter" v-if="counter < 10">++ Увеличить</button>
-            <button @click="decCounter" v-if="counter > 0">-- Уменьшить</button>
+            <button @click="incCounter" :disabled="counter >= 10">++ Увеличить</button>
+            <button @click="decCounter" :disabled="counter <= 0">-- Уменьшить</button>
             
             <div class="user-info">
                 <h2>Пользователь:</h2>
@@ -94,13 +116,32 @@
                 <div>Телефон: {{ user.tel }}</div>
             </div>
 
+            <hr>
+
             <div class="flowers-section">
                 <h2>Цветы</h2>
                 <div v-for="(flower, id) in flowers" :key="id" class="flower-item">
-                    <span>{{ flower }}</span>
+                    <span v-if="flower !== null">{{ flower }}</span>
+                    <span v-else style="color: #aaa;">загружается...</span>
                     <div class="flower-actions">
-                        <button @click="editFlower(id, flower)">Редактировать</button>
+                        <button @click="editFlower(id, flower)" v-if="flower !== null">
+                            Редактировать
+                        </button>
+                        <div v-else class="spinner">🌀</div>
                     </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="calculator-section">
+                <h2>Калькулятор</h2>
+                <div class="calculator-row">
+                    <input type="number" v-model.number="a" class="calculator-input">
+                    <span>+</span>
+                    <input type="number" v-model.number="b" class="calculator-input">
+                    <button @click="sum">=</button>
+                    <span class="calculator-result">{{ result }}</span>
                 </div>
             </div>
         </div>
@@ -122,7 +163,10 @@
                         age: '18',
                         tel: '222-33-44'
                     },
-                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик']
+                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик'],
+                    a: 1,
+                    b: 10,
+                    result: ''
                 }
             },
             methods: {
@@ -135,8 +179,15 @@
                 editFlower(id, flower) {
                     const newName = prompt('Введите новое название цветка:', flower);
                     if (newName !== null && newName.trim() !== '') {
-                        this.flowers[id] = newName.trim();
+                        this.flowers[id] = null; // Показываем состояние загрузки
+                        setTimeout(() => {
+                            this.flowers[id] = newName.trim(); // Через 3 секунды сохраняем новое имя
+                        }, 3000);
                     }
+                },
+                sum() {
+                    // Благодаря .number в v-model и type="number" значения уже преобразованы в числа
+                    this.result = this.a + this.b;
                 }
             }
         }).mount('#app');
