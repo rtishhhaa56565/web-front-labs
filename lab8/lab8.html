@@ -51,6 +51,26 @@
         .user-info div {
             margin: 8px 0;
         }
+        .flowers-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+        .flower-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #666;
+        }
+        .flower-item:last-child {
+            border-bottom: none;
+        }
+        .flower-actions {
+            display: flex;
+            gap: 8px;
+        }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -73,6 +93,16 @@
                 <div>Возраст: {{ user.age }}</div>
                 <div>Телефон: {{ user.tel }}</div>
             </div>
+
+            <div class="flowers-section">
+                <h2>Цветы</h2>
+                <div v-for="(flower, id) in flowers" :key="id" class="flower-item">
+                    <span>{{ flower }}</span>
+                    <div class="flower-actions">
+                        <button @click="editFlower(id, flower)">Редактировать</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -91,7 +121,8 @@
                         name: 'Вася',
                         age: '18',
                         tel: '222-33-44'
-                    }
+                    },
+                    flowers: ['роза', 'тюльпан', 'маргаритка', 'георгин', 'одуванчик']
                 }
             },
             methods: {
@@ -100,6 +131,12 @@
                 },
                 decCounter() {
                     this.counter--;
+                },
+                editFlower(id, flower) {
+                    const newName = prompt('Введите новое название цветка:', flower);
+                    if (newName !== null && newName.trim() !== '') {
+                        this.flowers[id] = newName.trim();
+                    }
                 }
             }
         }).mount('#app');
