@@ -42,20 +42,6 @@
         .user-info div {
             margin: 8px 0;
         }
-        .flower-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #666;
-        }
-        .flower-item:last-child {
-            border-bottom: none;
-        }
-        .flower-actions {
-            display: flex;
-            gap: 8px;
-        }
         .calculator-row {
             display: flex;
             align-items: center;
@@ -77,6 +63,15 @@
             width: 1rem;
             height: 1rem;
             border-width: 0.15em;
+        }
+        /* Стиль для элементов списка */
+        .list-group-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #666;
+            border-color: #777;
+            color: white;
         }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -105,18 +100,18 @@
 
             <div class="flowers-section">
                 <h2>Цветы (список)</h2>
-                <div v-for="(flower, id) in flowers" :key="id" class="flower-item">
-                    <span v-if="flower !== null">{{ flower }}</span>
-                    <span v-else class="text-muted">загружается...</span>
-                    <div class="flower-actions">
+                <ul class="list-group">
+                    <li v-for="(flower, id) in flowers" :key="id" class="list-group-item">
+                        <span v-if="flower !== null">{{ flower }}</span>
+                        <span v-else class="text-muted">загружается...</span>
                         <button @click="editFlower(id, flower)" v-if="flower !== null" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil"></i> Редактировать
                         </button>
                         <div v-else class="spinner-border spinner-border-sm text-light" role="status">
                             <span class="visually-hidden">Загрузка...</span>
                         </div>
-                    </div>
-                </div>
+                    </li>
+                </ul>
             </div>
 
             <hr>
