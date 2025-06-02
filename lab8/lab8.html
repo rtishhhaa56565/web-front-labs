@@ -99,19 +99,23 @@
             <hr>
 
             <div class="flowers-section">
-                <h2>Цветы (список)</h2>
-                <ul class="list-group">
-                    <li v-for="(flower, id) in flowers" :key="id" class="list-group-item">
-                        <span v-if="flower !== null">{{ flower }}</span>
-                        <span v-else class="text-muted">загружается...</span>
-                        <button @click="editFlower(id, flower)" v-if="flower !== null" class="btn btn-sm btn-warning">
-                            <i class="bi bi-pencil"></i> Редактировать
-                        </button>
-                        <div v-else class="spinner-border spinner-border-sm text-light" role="status">
-                            <span class="visually-hidden">Загрузка...</span>
-                        </div>
-                    </li>
-                </ul>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h2 class="card-title">Цветы (список)</h2>
+                        <ul class="list-group">
+                            <li v-for="(flower, id) in flowers" :key="id" class="list-group-item">
+                                <span v-if="flower !== null">{{ flower }}</span>
+                                <span v-else class="text-muted">загружается...</span>
+                                <button @click="editFlower(id, flower)" v-if="flower !== null" class="btn btn-sm btn-warning">
+                                    <i class="bi bi-pencil"></i> Редактировать
+                                </button>
+                                <div v-else class="spinner-border spinner-border-sm text-light" role="status">
+                                    <span class="visually-hidden">Загрузка...</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <hr>
