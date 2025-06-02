@@ -82,10 +82,6 @@
             align-items: center;
             gap: 5px;
         }
-        .flower-actions {
-            display: flex;
-            gap: 5px;
-        }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -124,18 +120,18 @@
             <hr>
 
             <div class="flowers-section">
-                <div class="card">
+                <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h2 class="card-title"><i class="bi bi-flower1"></i> Цветы (список)</h2>
                         <ul class="list-group">
                             <li v-for="(flower, id) in flowers" :key="id" class="list-group-item">
                                 <span><i class="bi bi-flower2"></i> {{ flower }}</span>
-                                <div class="flower-actions">
+                                <div class="d-flex gap-1">
                                     <button 
                                         @click="editFlower(id, flower)" 
                                         v-if="!loadingIds.includes(id)" 
                                         class="btn btn-sm btn-warning">
-                                        <i class="bi bi-pencil"></i>
+                                        <i class="bi bi-pencil"></i> 
                                     </button>
                                     <button 
                                         @click="removeFlower(id)" 
@@ -151,13 +147,8 @@
                                 </div>
                             </li>
                         </ul>
-                        <div class="input-group mt-3">
-                            <input 
-                                type="text" 
-                                v-model="newFlower" 
-                                @keyup.enter="addFlower"
-                                class="form-control" 
-                                placeholder="Введите название цветка">
+                        <div class="input-group mt-2">
+                            <input type="text" v-model="newFlower" class="form-control" placeholder="Новый цветок">
                             <button @click="addFlower" class="btn btn-success">
                                 <i class="bi bi-plus-lg"></i> Добавить
                             </button>
@@ -181,7 +172,7 @@
                         <tr v-for="(flower, id) in flowers" :key="id">
                             <td><i class="bi bi-flower2"></i> {{ flower }}</td>
                             <td class="text-end">
-                                <div class="flower-actions justify-content-end">
+                                <div class="d-flex gap-1 justify-content-end">
                                     <button 
                                         @click="editFlower(id, flower)" 
                                         v-if="!loadingIds.includes(id)" 
@@ -290,7 +281,7 @@
                     }
                 },
                 removeFlower(id) {
-                    if (confirm(`Вы уверены, что хотите удалить цветок "${this.flowers[id]}"?`)) {
+                    if (confirm(`Удалить цветок "${this.flowers[id]}"?`)) {
                         this.flowers.splice(id, 1);
                     }
                 },
